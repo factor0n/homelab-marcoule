@@ -1,6 +1,6 @@
-# Homelab CEA Marcoule — HPC Monitoring & Generative AI Platform
+# Homelab  Marcoule — HPC Monitoring & Generative AI Platform
 
-A full-stack HPC monitoring and generative AI inference infrastructure deployed on a Kubernetes (k3s) cluster, reproducing a miniature version of the CEA Marcoule (STIC/GPSI) computing environment.
+A full-stack HPC monitoring and generative AI inference infrastructure deployed on a Kubernetes (k3s) cluster, reproducing a miniature version of the  Marcoule (STIC/GPSI) computing environment.
 
 ## Architecture
 Proxmox VE 8.4 (HP Pavilion 15-n205sk, i5-4200U, 16 GB RAM)
