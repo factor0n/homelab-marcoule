@@ -55,7 +55,7 @@ Proxmox VE 8.4 (HP Pavilion 15-n205sk, i5-4200U, 16 GB RAM)
 | PodCrashLooping | Restart loop (15 min) | Critical |
 
 ## Project Structure
-homelab-cea-marcoule/
+homelab-marcoule/
 ├── README.md
 ├── monitoring/
 │   └── values-monitoring.yaml      # Helm config for Prometheus + Grafana
