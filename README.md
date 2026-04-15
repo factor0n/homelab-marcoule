@@ -1,23 +1,26 @@
-# Homelab  Marcoule — HPC Monitoring & Generative AI Platform
+# Homelab HPC — Monitoring & Generative AI Platform
 
-A full-stack HPC monitoring and generative AI inference infrastructure deployed on a Kubernetes (k3s) cluster, reproducing a miniature version of the  Marcoule (STIC/GPSI) computing environment.
+A full-stack HPC monitoring and generative AI inference infrastructure deployed on a Kubernetes (k3s) cluster, built on a single physical machine virtualized through Proxmox VE.
 
 ## Architecture
+
+```
 Proxmox VE 8.4 (HP Pavilion 15-n205sk, i5-4200U, 16 GB RAM)
 └── VM Ubuntu Server 24.04 (10 GB RAM, 3 vCPU, 80 GB)
-└── k3s (Kubernetes single-node)
-├── Namespace: monitoring
-│   ├── Prometheus (metrics collection)
-│   ├── Grafana (dashboards & visualization)
-│   ├── Node Exporter (system metrics)
-│   ├── Kube State Metrics (K8s metrics)
-│   └── Alertmanager (HPC alerts)
-├── Namespace: ia
-│   ├── Ollama (LLM inference server)
-│   └── Open WebUI (ChatGPT-like web interface)
-└── SLURM (HPC job scheduler)
-├── slurmctld (controller)
-└── slurmd (daemon)
+    └── k3s (Kubernetes single-node)
+        ├── Namespace: monitoring
+        │   ├── Prometheus (metrics collection)
+        │   ├── Grafana (dashboards & visualization)
+        │   ├── Node Exporter (system metrics)
+        │   ├── Kube State Metrics (K8s metrics)
+        │   └── Alertmanager (HPC alerts)
+        ├── Namespace: ia
+        │   ├── Ollama (LLM inference server)
+        │   └── Open WebUI (ChatGPT-like web interface)
+        └── SLURM (HPC job scheduler)
+            ├── slurmctld (controller)
+            └── slurmd (daemon)
+```
 
 ## Tech Stack
 
@@ -55,7 +58,9 @@ Proxmox VE 8.4 (HP Pavilion 15-n205sk, i5-4200U, 16 GB RAM)
 | PodCrashLooping | Restart loop (15 min) | Critical |
 
 ## Project Structure
-homelab-marcoule/
+
+```
+homelab-hpc/
 ├── README.md
 ├── monitoring/
 │   └── values-monitoring.yaml      # Helm config for Prometheus + Grafana
@@ -69,8 +74,9 @@ homelab-marcoule/
 │   ├── ollama-deployment.yaml      # Ollama K8s deployment
 │   └── open-webui-deployment.yaml  # Open WebUI K8s deployment
 └── dashboards/
-├── hpc-cluster.json            # Grafana HPC dashboard
-└── ia-platform.json            # Grafana AI dashboard
+    ├── hpc-cluster.json            # Grafana HPC dashboard
+    └── ia-platform.json            # Grafana AI dashboard
+```
 
 ## Quick Start
 
@@ -115,21 +121,15 @@ kubectl exec -it deployment/ollama -n ia -- ollama pull tinyllama
 ### Service Access
 | Service | URL |
 |---------|-----|
-| Grafana | http://<VM_IP>:30300 (admin / homelab-cea-2026) |
+| Grafana | http://<VM_IP>:30300 |
 | Open WebUI | http://<VM_IP>:<NodePort> |
 | SLURM | `sinfo`, `squeue`, `sbatch` |
-
-## Context
-
-This project was built as preparation for an internship at CEA Marcoule (STIC/GPSI), focusing on:
-- Deploying monitoring tools on HPC computing platforms
-- Setting up tools for the national generative AI infrastructure
 
 ## Skills Demonstrated
 
 - **Containerization & Orchestration**: Docker, Kubernetes (k3s), Helm
 - **Monitoring**: Prometheus, Grafana, Alertmanager, Node Exporter
-- **HPC**: SLURM, job scheduling, resource allocation
+- **HPC**: SLURM, job scheduling, resource allocation, cgroups
 - **AI/ML Ops**: LLM deployment (Ollama), web interface (Open WebUI)
 - **Systems**: Linux, Proxmox, Netplan, iptables, NAT
-- **Infrastructure as Code**: YAML manifests, Helm values, Bash scripts
+- **Infrastructure as Code**: YAML manifests, Helm values, Bash scripts, Git
